@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Kettlebell Sport - Results Ranks & Records</title>
 
-  <!-- Cookie consent CSS (if used) -->
-  <link rel="stylesheet" href="/cookie-consent.css">
+  <!-- Cookie consent CSS (relative path) -->
+  <link rel="stylesheet" href="cookie-consent.css">
 
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
@@ -74,7 +74,7 @@
     .socials { display:flex; gap:14px; align-items:center; }
     .footer-links { display:flex; gap:12px; align-items:center; }
 
-    /* Footer links now match submit button (facebook blue) */
+    /* Footer links (facebook blue) */
     .footer-links a {
       color:#fff;
       text-decoration:none;
@@ -98,7 +98,7 @@
       footer.site-footer { justify-content:center; }
     }
 
-    /* Force content page anchor colours to site blue where needed (specific selectors to avoid wide/global override) */
+    /* Force content page anchor colours to site blue where needed */
     .content-link, .page-content a { color: #1877f2 !important; }
   </style>
 </head>
@@ -150,7 +150,7 @@
   <section id="submitView" class="submit-page" aria-hidden="true">
     <div class="submit-header">
       <div class="submit-title">Submit a result</div>
-      <div><a href="/" class="back-link" id="backToMain">← Back to results</a></div>
+      <div><a href="index.html" class="back-link" id="backToMain">← Back to results</a></div>
     </div>
 
     <div class="form-frame" aria-live="polite">
@@ -170,16 +170,16 @@
     </div>
 
     <div class="footer-links">
-      <a href="/about.html">About</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/contact.html">Contact</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
     </div>
   </footer>
 
-  <script src="/cookie-consent.js" defer></script>
+  <script src="cookie-consent.js" defer></script>
   <script>
-    // (existing JS unchanged; omitted here for brevity — keep your current loadSheetHtml, polling, routing etc.)
-    // Make sure the rest of your site JS still matches the previous version you uploaded.
+    // keep your existing JS here (loadSheetHtml, polling, routing etc.)
+    // Ensure any internal links referenced by JS use relative paths (e.g. "index.html", "contact.html")
   </script>
 </body>
 </html>
