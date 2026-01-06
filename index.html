@@ -14,35 +14,28 @@
             -webkit-font-smoothing:antialiased;
         }
 
-        /* Header */
+        /* Header / Banner */
         header {
             position: relative;
             background: #111;
             overflow: hidden;
         }
 
-        /* Full-width banner image */
+        /* Use img with object-fit: contain so the whole banner is visible (no top/bottom crop).
+           Increase desktop height to show more of the image. */
         .banner {
             display: block;
             width: 100%;
-            height: 160px; /* change this to make banner taller/shorter */
-            object-fit: cover; /* ensures it spans the width */
+            height: 220px; /* desktop height - increase if you'd like more space */
+            object-fit: contain; /* keeps the full image visible, letterboxing if needed */
+            background-color: #111; /* fallback color if image aspect leaves bars */
         }
 
-        /* Small overlay container for centered content if needed */
-        .header-overlay {
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            pointer-events: none; /* allow clicks to pass through except for the fb button */
+        @media (max-width: 640px) {
+            .banner { height: 120px; } /* smaller banner on phones */
         }
 
-        /* Accessibly hidden textual site title for screen readers */
+        /* Accessibility: textual header for screen readers */
         .sr-only {
             position: absolute !important;
             height: 1px; width: 1px;
@@ -51,46 +44,14 @@
             white-space: nowrap;
         }
 
-        /* Facebook icon button (overlay) */
-        .fb-icon {
-            pointer-events: auto;
-            position: absolute;
-            right: 18px;
-            top: 18px;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #1877f2;
-            color: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-weight: 700;
-            font-family: Arial, Helvetica, sans-serif;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-            border: 2px solid rgba(255,255,255,0.06);
-            transition: transform .12s ease, box-shadow .12s ease;
-            z-index: 10;
-        }
-
-        .fb-icon:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
-        .fb-icon:focus { outline: 3px solid rgba(24,119,242,0.25); }
-
-        /* Smaller icon on small screens */
-        @media (max-width: 640px) {
-            .banner { height: 110px; }
-            .fb-icon { width: 36px; height: 36px; right: 12px; top: 12px; font-size: 18px; }
-        }
-
         /* Page container */
         .container {
             max-width: 1400px;
-            margin: 22px auto;
+            margin: 20px auto;
             padding: 0 20px;
         }
 
-        /* Controls (only the category select now) */
+        /* Controls (only the category select) */
         .controls {
             background: #333;
             padding: 16px;
@@ -114,7 +75,7 @@
         }
         select:focus { outline: 2px solid #1877f2; }
 
-        /* Instruction moved above the sheet */
+        /* Instruction moved above the sheet (only the short Ctrl+F tip) */
         .info-top {
             color: #ddd;
             font-size: 14px;
@@ -122,13 +83,18 @@
             text-align: center;
         }
 
+        /* Sheet frame */
         .sheet-frame {
             background: #fff;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-            height: calc(100vh - 360px);
-            min-height: 420px;
+            height: calc(100vh - 480px); /* adjusted to account for larger banner */
+            min-height: 520px;
+        }
+
+        @media (max-width: 780px) {
+            .sheet-frame { height: calc(100vh - 300px); min-height: 420px; }
         }
 
         iframe {
@@ -138,43 +104,59 @@
             display: block;
         }
 
-        .info-bottom {
-            color: #aaa;
-            font-size: 13px;
-            margin-top: 12px;
-            text-align: center;
+        /* Footer with social buttons centered */
+        footer.site-footer {
+            max-width: 1400px;
+            margin: 18px auto 40px;
+            padding: 0 20px;
+            display:flex;
+            justify-content:center;
+            gap: 14px;
+            align-items:center;
         }
 
-        @media (max-width: 780px) {
-            .container { margin-top: 14px; }
-            .sheet-frame { height: calc(100vh - 380px); min-height: 360px; }
+        .social-btn {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:44px;
+            height:44px;
+            border-radius:50%;
+            text-decoration:none;
+            color:#fff;
+            font-weight:700;
+            font-family: Arial, Helvetica, sans-serif;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+            transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
         }
+
+        .social-btn:focus { outline: 3px solid rgba(255,255,255,0.12); }
+
+        .social-fb { background: #1877f2; } /* blue */
+        .social-ig { background: linear-gradient(45deg, #f58529, #dd2a7b 30%, #8134af 60%); } /* instagram gradient */
+
+        .social-btn:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.4); opacity: 0.98; }
+
+        /* small label (hidden visually but available to screen readers) */
+        .social-label { position: absolute; left: -9999px; top: auto; width:1px; height:1px; overflow:hidden; }
+
     </style>
 </head>
 <body>
     <header>
-        <!-- Banner image must exist at assets/banner.jpg (case-sensitive) -->
+        <!-- Banner image must exist at assets/banner.jpg (case-sensitive).
+             Using object-fit: contain prevents top/bottom cropping; height is larger on desktop. -->
         <img src="assets/banner.jpg" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
 
-        <!-- Optional overlay (kept empty except for accessibility) -->
-        <div class="header-overlay" aria-hidden="true">
-            <!-- could place additional centered items here if needed -->
-        </div>
-
-        <!-- Facebook small circular icon (updated URL) -->
-        <a class="fb-icon" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Kettlebell Sport Facebook Group">
-            f
-        </a>
-
-        <!-- Textual header for screen readers -->
+        <!-- Text for screen readers -->
         <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport — Results Ranks & Records</div>
     </header>
 
-    <div class="container">
-        <div class="controls">
+    <main class="container" role="main">
+        <div class="controls" aria-hidden="false">
             <div class="control-group">
                 <label for="category">Select Category</label>
-                <select id="category">
+                <select id="category" aria-label="Select competition category">
                     <option value="biathlon-male">Biathlon Male</option>
                     <option value="biathlon-female">Biathlon Female</option>
                     <option value="jerks10-male">Jerks 10' Male</option>
@@ -192,19 +174,28 @@
                     <option value="ikmf-games">IKMF Games</option>
                 </select>
             </div>
-
-            <!-- Search box removed (use Ctrl+F inside the sheet) -->
         </div>
 
-        <!-- Moved instruction above the sheet -->
-        <p class="info-top">Tip: Press <strong>Ctrl+F</strong> (Cmd+F on Mac) while focused in the sheet to search quickly. If you want fixed columns while scrolling, freeze the left columns in the original Google Sheet (View → Freeze) and republish the sheet.</p>
+        <p class="info-top">Tip: Press <strong>Ctrl+F</strong> (Cmd+F on Mac) while focused in the sheet to search quickly.</p>
 
         <div class="sheet-frame" id="sheetFrameWrap">
             <iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml?gid=93885002&single=true&widget=true&headers=false" title="Kettlebell results sheet"></iframe>
         </div>
+    </main>
 
-        <p class="info-bottom">Click column headers in the sheet to sort where available. Published sheets must be public to render inside the page.</p>
-    </div>
+    <!-- Footer with centered social buttons -->
+    <footer class="site-footer" role="contentinfo" aria-label="Social links">
+        <a class="social-btn social-fb" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Facebook group">
+            <span aria-hidden="true">f</span>
+            <span class="social-label">Facebook</span>
+        </a>
+
+        <a class="social-btn social-ig" href="https://www.instagram.com/kettlebell_sport_records" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+            <!-- simple camera glyph; screen readers get label -->
+            <span aria-hidden="true">📷</span>
+            <span class="social-label">Instagram</span>
+        </a>
+    </footer>
 
     <script>
         // Category -> GID mapping (unchanged)
@@ -233,8 +224,6 @@
             const iframe = document.getElementById('sheetFrame');
             iframe.src = `${baseUrl}?gid=${gid}&single=true&widget=true&headers=false`;
         });
-
-        // No on-page search box; instruct users to use browser search within the sheet iframe.
     </script>
 </body>
 </html>
