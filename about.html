@@ -3,24 +3,50 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About — Kettlebell Sport Results</title>
+  <title>About – Kettlebell Sport Results</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#000; color:#fff; margin:0; padding:20px; }
-    .container { max-width:900px; margin:32px auto; }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background:#000; 
+      color:#fff; 
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    
+    /* Header / Banner */
+    header { position:relative; overflow:hidden; }
+    .banner-wrap { width:100%; display:block; text-align:center; }
+    @media (min-width:1024px) { .banner-wrap { max-width:1400px; margin:0 auto; padding:10px 0; } }
+    .banner { display:block; width:100%; height:260px; object-fit:cover; object-position:center; background-color:#000; margin:0 auto; }
+    @media (max-width:640px) {
+      .banner { width:100%; max-width:420px; height:140px; object-fit:contain; margin:6px auto; }
+      .banner-wrap { padding:6px 0; }
+    }
+    
+    .container { max-width:900px; margin:32px auto; padding:0 20px; }
     h1 { margin-bottom:8px; }
-    p { color:#ddd; line-height:1.6; }
+    h2 { margin-top: 24px; margin-bottom: 12px; }
+    p { color:#ddd; line-height:1.6; margin-bottom: 16px; }
     a { color:#1877f2 !important; text-decoration:none; font-weight:600; }
     a:hover { text-decoration:underline; }
-    .back { display:inline-block; margin-top:18px; padding:8px 12px; background:#222; border-radius:8px; text-decoration:none; color:#fff; }
+    .back { display:inline-block; margin-top:18px; padding:10px 16px; background:#1877f2; border-radius:8px; text-decoration:none; color:#fff; font-weight:600; box-shadow:0 6px 18px rgba(0,0,0,0.35); transition:transform .12s ease; }
+    .back:hover { transform:translateY(-3px); text-decoration:none; }
   </style>
 </head>
 <body>
+  <header>
+    <div class="banner-wrap">
+      <img src="assets/banner.jpg" alt="Kettlebell Sport – Results Ranks & Records" class="banner" />
+    </div>
+  </header>
+
   <div class="container page-content">
     <h1>About this project</h1>
 
     <p>
       This website publishes kettlebell sport competition results, ranks and records as a free community resource.
-      It is a personal / community project run by volunteers — not a commercial service — created to help athletes,
+      It is a personal / community project run by volunteers – not a commercial service – created to help athletes,
       organisers and national bodies find results in one place.
     </p>
 
@@ -35,7 +61,7 @@
     <p>
       Please use the website contact form for enquiries, corrections and bulk upload requests:
       <a href="contact.html">Contact form</a>.
-      If you are sending bulk data, include a short description of the file format and contact details — we will reply with
+      If you are sending bulk data, include a short description of the file format and contact details – we will reply with
       instructions for secure transfer where necessary.
     </p>
 

@@ -3,27 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact — Kettlebell Sport Results</title>
+  <title>Contact – Kettlebell Sport Results</title>
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#000; color:#fff; -webkit-font-smoothing:antialiased; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background:#000; 
+      color:#fff; 
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    
+    /* Header / Banner */
+    header { position:relative; overflow:hidden; }
+    .banner-wrap { width:100%; display:block; text-align:center; }
+    @media (min-width:1024px) { .banner-wrap { max-width:1400px; margin:0 auto; padding:10px 0; } }
+    .banner { display:block; width:100%; height:260px; object-fit:cover; object-position:center; background-color:#000; margin:0 auto; }
+    @media (max-width:640px) {
+      .banner { width:100%; max-width:420px; height:140px; object-fit:contain; margin:6px auto; }
+      .banner-wrap { padding:6px 0; }
+    }
+    
     .container { max-width:1100px; margin:18px auto 48px; padding:18px; }
-    .header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+    .page-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
     h1 { font-size:20px; margin:0; }
     .note { color:#ccc; margin-top:8px; margin-bottom:12px; line-height:1.5; }
-    .back-link { display:inline-block; padding:8px 12px; border-radius:8px; background:#222; color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,0.03); }
+    .back-link { display:inline-block; padding:10px 16px; border-radius:8px; background:#1877f2; color:#fff; text-decoration:none; font-weight:600; box-shadow:0 6px 18px rgba(0,0,0,0.35); transition:transform .12s ease; }
+    .back-link:hover { transform:translateY(-3px); text-decoration:none; }
     .form-frame { background:#fff; color:#111; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.45); padding:0; }
     .form-frame .embed-wrap { width:100%; max-width:900px; margin:0 auto; }
     .form-frame iframe { width:100%; height:595px; border:0; display:block; }
-    @media (max-width:640px) { .form-frame iframe { height:calc(100vh - 160px); min-height:520px; } .container { padding:12px; margin:12px auto 36px; } }
+    @media (max-width:640px) { 
+      .form-frame iframe { height:calc(100vh - 300px); min-height:520px; } 
+      .container { padding:12px; margin:12px auto 36px; } 
+    }
     a { color:#1877f2 !important; text-decoration:none; font-weight:600; }
     a:hover { text-decoration:underline; }
     .footer-note { color:#999; font-size:13px; margin-top:12px; }
   </style>
 </head>
 <body>
+  <header>
+    <div class="banner-wrap">
+      <img src="assets/banner.jpg" alt="Kettlebell Sport – Results Ranks & Records" class="banner" />
+    </div>
+  </header>
+
   <div class="container">
-    <div class="header">
+    <div class="page-header">
       <div>
         <h1>Contact / Bulk Uploads</h1>
         <p class="note">Use this form to request bulk uploads (national records, competition results), report corrections, or ask about data formats. For large files we will reply with secure upload instructions.</p>
