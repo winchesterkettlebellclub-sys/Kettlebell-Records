@@ -19,7 +19,7 @@
         
         header {
             background: #1a1a1a;
-            padding: 20px;
+            padding: 14px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
@@ -29,31 +29,22 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            width: 100%;
         }
         
-        .logo {
-            width: 60px;
-            height: 60px;
-            border: 3px solid #fff;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
+        /* Banner image (use the attached image file saved to assets/banner.png) */
+        .banner {
+            display: block;
+            height: 80px;
+            width: auto;
+            object-fit: contain;
         }
-        
-        .header-text h1 {
-            font-size: 32px;
-            font-weight: 300;
-            letter-spacing: 1px;
+
+        /* Fallback textual header for screen readers / if banner fails to load */
+        .header-text {
+            display: none;
         }
-        
-        .header-text p {
-            font-size: 18px;
-            color: #aaa;
-            margin-top: 5px;
-        }
-        
+
         .fb-link {
             margin-left: auto;
             background: #1877f2;
@@ -144,16 +135,16 @@
         
         @media (max-width: 768px) {
             .header-content {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                text-align: left;
             }
             
             .fb-link {
-                margin-left: 0;
+                margin-left: 8px;
             }
             
-            .header-text h1 {
-                font-size: 24px;
+            .banner {
+                height: 56px;
             }
             
             .controls {
@@ -164,17 +155,31 @@
                 width: 100%;
             }
         }
+
+        /* Utility: visually hidden (keeps text accessible to screen readers) */
+        .sr-only {
+            position: absolute !important;
+            height: 1px; width: 1px;
+            overflow: hidden;
+            clip: rect(1px, 1px, 1px, 1px);
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🏋</div>
-            <div class="header-text">
+            <!-- Replace this file with your banner image at assets/banner.png -->
+            <img src="assets/banner.png" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
+
+            <!-- Keep the textual header for accessibility; it's hidden visually but available to screen readers -->
+            <div class="header-text sr-only">
                 <h1>Kettlebell Sport</h1>
                 <p>Results Ranks & Records</p>
             </div>
-            <a href="https://www.facebook.com/groups/kettlebellsportresultsranksandrecords" target="_blank" class="fb-link">
+
+            <!-- Updated Facebook group URL -->
+            <a href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" class="fb-link">
                 <span>f</span> Facebook Group
             </a>
         </div>
