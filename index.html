@@ -182,8 +182,8 @@
   <main id="mainView" class="container" role="main">
     <div class="controls" aria-hidden="false">
       <div class="control-group">
-        <label for="category">Select Category</label>
-        <select id="category" aria-label="Select competition category">
+        <label for="category">Select Lift / Discipline</label>
+        <select id="category" aria-label="Select Lift / Discipline">
           <option value="biathlon-male">Biathlon Male</option>
           <option value="biathlon-female">Biathlon Female</option>
           <option value="jerks10-male">Jerks 10' Male</option>
@@ -411,27 +411,20 @@
     /* Simple routing: show main or submit view */
     function showView(view) {
       if (view === 'submit') {
-        // show submit view, hide main
         mainView.style.display = 'none';
         submitView.style.display = 'block';
         submitView.setAttribute('aria-hidden', 'false');
         mainView.setAttribute('aria-hidden', 'true');
-        // stop polling while user is on form page (reduces background fetches)
         stopPolling();
-        // update location hash/history
         history.pushState({ view: 'submit' }, '', '#submit');
       } else {
-        // show main view
         submitView.style.display = 'none';
         mainView.style.display = 'block';
         submitView.setAttribute('aria-hidden', 'true');
         mainView.setAttribute('aria-hidden', 'false');
-        // reset snapshot so we get fresh content next poll
         lastSnapshot = null;
-        // ensure current sheet is loaded
         const gid = sheets[categoryEl.value];
         loadSheetHtml(gid).catch(() => {});
-        // resume polling
         startPolling();
         history.pushState({ view: 'main' }, '', window.location.pathname);
       }
@@ -473,7 +466,6 @@
       } else {
         showView('main');
       }
-      // initial load and start polling if on main
       if (mainView.style.display !== 'none') {
         loadSheetHtml(initialGid).then(text => {
           lastSnapshot = text ? text.trim() : null;
