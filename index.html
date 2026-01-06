@@ -6,71 +6,162 @@
   <title>Kettlebell Sport - Results Ranks & Records</title>
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
+    html,body { height:100%; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #000;
       color: #fff;
       -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Banner + layout */
+    /* Header / Banner */
     header { position:relative; overflow:hidden; }
     .banner-wrap { width:100%; display:block; text-align:center; }
     @media (min-width:1024px) {
-      .banner-wrap { max-width:1400px; margin:0 auto; padding:10px 0; } /* small desktop vertical padding */
+      .banner-wrap { max-width:1400px; margin:0 auto; padding:10px 0; }
     }
     .banner {
-      display:block; width:100%; height:260px; object-fit:cover; object-position:center; background:#000; margin:0 auto;
+      display:block;
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      object-position:center;
+      background-color:#000;
+      margin:0 auto;
     }
     @media (max-width:640px) {
-      .banner { width:100%; max-width:420px; height:140px; object-fit:contain; margin:6px auto; } /* reduced padding on phone */
-      .banner-wrap { padding:6px 0; } /* reduce banner top/bottom padding on phone */
+      .banner {
+        width:100%;
+        max-width:420px;
+        height:140px;
+        object-fit:contain;
+        object-position:center;
+        margin:6px auto;
+      }
+      .banner-wrap { padding:6px 0; }
     }
 
-    .sr-only { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+    .sr-only {
+      position:absolute !important;
+      height:1px; width:1px; overflow:hidden;
+      clip:rect(1px,1px,1px,1px); white-space:nowrap;
+    }
 
-    .container { max-width:1400px; margin:18px auto; padding:0 20px; }
+    /* Page link below banner */
+    .page-nav {
+      text-align:center;
+      margin: 10px 0 6px;
+    }
+    .page-nav a {
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:8px;
+      background:#1877f2;
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      transition:transform .12s ease;
+    }
+    .page-nav a:hover { transform:translateY(-3px); }
 
-    /* controls */
-    .controls { background:#333; padding:12px; border-radius:10px; margin-bottom:12px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    /* Page container */
+    .container { max-width:1400px; margin:14px auto 28px; padding:0 20px; min-height:0; }
+
+    /* Controls */
+    .controls {
+      background:#333; padding:12px; border-radius:10px;
+      margin-bottom:12px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    }
     .control-group { min-width:200px; flex:1; display:flex; flex-direction:column; gap:6px; }
     label { font-size:14px; color:#ccc; font-weight:600; }
-    select { padding:10px; border:none; border-radius:6px; background:#444; color:#fff; font-size:15px; }
+    select {
+      padding:10px; border:none; border-radius:6px; background:#444; color:#fff; font-size:15px;
+    }
     select:focus { outline:2px solid #1877f2; }
+
     .info-top { color:#ddd; font-size:14px; margin:10px 0 8px; text-align:center; }
 
-    /* sheet container */
-    .sheet-frame { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.45); min-height:420px; height: calc(100vh - 520px); }
-    @media (max-width:780px) { .sheet-frame { height: calc(100vh - 320px); min-height:360px; } }
+    /* Sheet container */
+    .sheet-frame {
+      background:#fff; border-radius:10px; overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,0.45);
+      min-height:420px;
+      height: calc(100vh - 520px);
+    }
+    @media (max-width:780px) {
+      .sheet-frame { height: calc(100vh - 320px); min-height:360px; }
+    }
 
-    /* holder for imported HTML table */
-    #tableHolder { width:100%; height:100%; overflow:auto; padding:8px; background:#fff; }
-
-    /* styling for the imported table (keeps sheet inline styles, but we add a few helpers) */
+    #tableHolder { width:100%; height:100%; overflow:auto; padding:8px; background:#fff; color:#111; }
     .imported-sheet { width:100%; border-collapse:collapse; min-width:680px; }
     .imported-sheet th, .imported-sheet td { padding:6px 10px; vertical-align:middle; }
-    /* sticky header row (preserve sheet header styling; increase z-index) */
-    .imported-sheet thead th { position: sticky; top: 0; z-index: 5; }
-    /* make first column sticky to mimic freeze - do NOT override background so conditional formatting color remains */
+    .imported-sheet thead th { position: sticky; top: 0; z-index: 6; }
     .imported-sheet th:first-child,
     .imported-sheet td:first-child {
       position: -webkit-sticky; position: sticky;
-      left: 0;
-      z-index: 4; /* less than header corner */
-      box-shadow: 2px 0 6px rgba(0,0,0,0.06);
+      left: 0; z-index: 5; box-shadow: 2px 0 6px rgba(0,0,0,0.06);
     }
-    /* corner cell (header + first column) should be on top */
-    .imported-sheet thead th:first-child { z-index: 7; }
+    .imported-sheet thead th:first-child { z-index: 8; }
 
-    /* fallback iframe */
     .iframe-fallback iframe { width:100%; height:100%; border:0; display:block; }
 
-    /* footer social */
-    footer.site-footer { max-width:1400px; margin:18px auto 36px; padding:0 20px; display:flex; justify-content:center; gap:14px; align-items:center; }
+    /* Submit form page */
+    .submit-page {
+      display:none;
+      max-width:1400px;
+      margin: 8px auto 28px;
+      padding: 0 20px;
+    }
+    .submit-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+    }
+    .submit-title { font-size:18px; color:#fff; font-weight:700; }
+    .back-link {
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:8px;
+      background:#333;
+      color:#fff;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    /* form iframe container */
+    .form-frame {
+      background:#fff;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,0.45);
+      padding:0;
+    }
+    /* responsive iframe sizing: fill most of viewport but leave space for header/nav */
+    .form-frame iframe {
+      width:100%;
+      height: calc(100vh - 220px);
+      min-height:600px;
+      border:0;
+    }
+    @media (max-width:640px) {
+      .form-frame iframe { height: calc(100vh - 160px); min-height:500px; }
+    }
+
+    /* Footer social */
+    footer.site-footer { max-width:1400px; margin:18px auto 30px; padding:0 20px; display:flex; justify-content:center; gap:14px; align-items:center; }
     .social-btn { display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; text-decoration:none; overflow:hidden; background:#000; box-shadow:0 6px 18px rgba(0,0,0,0.32); transition:transform .12s ease; }
     .social-icon { display:block; width:100%; height:100%; object-fit:contain; background:transparent; padding:8px; }
     .social-btn:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.42); }
 
+    /* small responsive tweaks */
+    @media (max-width:420px) {
+      .controls { padding:10px; }
+      .container { margin:10px auto 22px; padding:0 12px; }
+      .page-nav a { padding:8px 10px; }
+    }
   </style>
 </head>
 <body>
@@ -78,11 +169,18 @@
     <div class="banner-wrap">
       <img src="assets/banner.jpg" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
     </div>
+
+    <!-- link to the submission page (just below the banner) -->
+    <div class="page-nav" aria-hidden="false">
+      <a href="#submit" id="submitNav">Submit a result</a>
+    </div>
+
     <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport — Results Ranks & Records</div>
   </header>
 
-  <main class="container" role="main">
-    <div class="controls">
+  <!-- MAIN view (sheets) -->
+  <main id="mainView" class="container" role="main">
+    <div class="controls" aria-hidden="false">
       <div class="control-group">
         <label for="category">Select Category</label>
         <select id="category" aria-label="Select competition category">
@@ -113,16 +211,38 @@
     </div>
   </main>
 
+  <!-- SUBMIT view (hidden by default) -->
+  <section id="submitView" class="submit-page" aria-hidden="true">
+    <div class="submit-header">
+      <div class="submit-title">Submit a result</div>
+      <div>
+        <a href="#" class="back-link" id="backToMain">← Back to results</a>
+      </div>
+    </div>
+
+    <div class="form-frame" aria-live="polite">
+      <!-- Embedded Google Form (responsive). Uses your iframe URL. -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeRfJFJeB2yPOIOzNqLDZ0vvEBaWPx0mIiYxHtg_reVrGLiVg/viewform?embedded=true"
+              title="Submit a result form"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+        Loading…
+      </iframe>
+    </div>
+  </section>
+
   <footer class="site-footer" role="contentinfo" aria-label="Social links">
     <a class="social-btn" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Facebook group">
       <img src="assets/fb-icon.webp" alt="Facebook" class="social-icon" onerror="this.style.display='none'">
     </a>
+
     <a class="social-btn" href="https://www.instagram.com/kettlebell_sport_records" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
       <img src="assets/ig-icon.webp" alt="Instagram" class="social-icon" onerror="this.style.display='none'">
     </a>
   </footer>
 
   <script>
+    // --- Configuration ---
     const sheets = {
       'biathlon-male': '93885002',
       'biathlon-female': '152053352',
@@ -143,11 +263,16 @@
 
     const basePubHtml = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
 
+    // DOM references
     const categoryEl = document.getElementById('category');
     const tableHolder = document.getElementById('tableHolder');
     const iframeFallback = document.getElementById('iframeFallback');
+    const mainView = document.getElementById('mainView');
+    const submitView = document.getElementById('submitView');
+    const submitNav = document.getElementById('submitNav');
+    const backToMain = document.getElementById('backToMain');
 
-    // Helper: compute colSpan sum for a <tr>
+    // Utilities
     function rowColSpanCount(tr) {
       let sum = 0;
       Array.from(tr.children).forEach(cell => {
@@ -160,91 +285,69 @@
     async function loadSheetHtml(gid) {
       tableHolder.style.display = 'none';
       iframeFallback.style.display = 'none';
-      const url = `${basePubHtml}?gid=${encodeURIComponent(gid)}&single=true&widget=true&headers=false`;
+
+      const url = `${basePubHtml}?gid=${encodeURIComponent(gid)}&single=true&widget=true&headers=false&cb=${Date.now()}`;
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, { cache: 'no-store' });
         if (!res.ok) throw new Error('fetch failed: ' + res.status);
         const text = await res.text();
         const doc = new DOMParser().parseFromString(text, 'text/html');
 
-        // attempt to find the main sheet table:
-        // prefer table.waffle (Google's table class), else first big table
         let table = doc.querySelector('table.waffle') || Array.from(doc.querySelectorAll('table')).find(t => t.rows.length > 1);
+        if (!table) throw new Error('No table found in published HTML');
 
-        if (!table) throw new Error('no table found in published HTML');
-
-        // clone so we can mutate
         const tableClone = table.cloneNode(true);
+        const caption = tableClone.querySelector('caption'); if (caption) caption.remove();
 
-        // remove caption if present
-        const caption = tableClone.querySelector('caption');
-        if (caption) caption.remove();
-
-        // remove leading empty rows
-        const rows = Array.from(tableClone.querySelectorAll('tr'));
-        // compute max columns across rows (sum of colspans)
-        const colCounts = rows.map(r => rowColSpanCount(r));
-        const maxCols = Math.max(...colCounts, 1);
-
-        // Drop initial rows that are empty (all cells empty)
-        let start = 0;
-        while (start < rows.length) {
-          const cells = Array.from(rows[start].children);
-          const nonEmpty = cells.some(td => td.textContent.trim() !== '');
-          if (nonEmpty) break;
-          rows[start].remove();
-          start++;
+        // Remove leading empty rows
+        let rows = Array.from(tableClone.querySelectorAll('tr'));
+        while (rows.length && rows[0].children.length && Array.from(rows[0].children).every(td => td.textContent.trim() === '')) {
+          rows[0].remove();
+          rows = Array.from(tableClone.querySelectorAll('tr'));
         }
 
-        // Recompute after removing empties
-        const rows2 = Array.from(tableClone.querySelectorAll('tr'));
-        // If the very first remaining row spans nearly all columns and next row has multiple cells,
-        // treat it as a sheet title and remove it.
-        if (rows2.length >= 2) {
-          const first = rows2[0];
+        // Detect and remove a sheet title row (heuristic)
+        const remaining = Array.from(tableClone.querySelectorAll('tr'));
+        if (remaining.length >= 2) {
+          const first = remaining[0];
+          const second = remaining[1];
           const firstCols = rowColSpanCount(first);
-          const second = rows2[1];
-          const secondCols = rowColSpanCount(second);
+          const allRows = Array.from(tableClone.querySelectorAll('tr'));
+          const maxCols = Math.max(...allRows.map(r => rowColSpanCount(r)), 1);
           const firstNonEmpty = Array.from(first.children).filter(c => c.textContent.trim() !== '').length;
           const secondNonEmpty = Array.from(second.children).filter(c => c.textContent.trim() !== '').length;
 
-          // heuristics to detect a title row:
-          // - first row spans >= 75% of maxCols OR first row has 1 cell with text and next row has >1 non-empty cells
           if (firstCols >= Math.max(1, Math.round(maxCols * 0.75)) || (firstNonEmpty === 1 && secondNonEmpty > 1)) {
             first.remove();
           }
         }
 
-        // Ensure a THEAD exists: if first row contains header-like cells, move it into THEAD
+        // Ensure THEAD exists: move first row into THEAD if missing
         const finalRows = Array.from(tableClone.querySelectorAll('tr'));
         if (finalRows.length > 0) {
-          const firstRow = finalRows[0];
-          // if table has no THEAD, create one and move firstRow into it
           if (!tableClone.querySelector('thead')) {
+            const firstRow = finalRows[0];
             const thead = document.createElement('thead');
             thead.appendChild(firstRow.cloneNode(true));
             tableClone.insertBefore(thead, tableClone.firstChild);
-            // remove the original firstRow (it will be duplicated)
             firstRow.remove();
           }
         }
 
-        // Add helper class
         tableClone.classList.add('imported-sheet');
-
-        // Inject into page
         tableHolder.innerHTML = '';
-        // Keep inline styles, but wrap in a scroll container
         tableHolder.appendChild(tableClone);
         tableHolder.style.display = 'block';
         iframeFallback.style.display = 'none';
 
-        // small accessibility help
         tableClone.tabIndex = -1;
         tableClone.focus && tableClone.focus();
+
+        return text;
       } catch (err) {
         console.warn('HTML import failed, falling back to iframe', err);
         showIframeFallback(gid);
+        return null;
       }
     }
 
@@ -259,17 +362,125 @@
       iframeFallback.style.display = 'block';
     }
 
-    // init
-    function init() {
-      const defaultGid = sheets[categoryEl.value];
-      loadSheetHtml(defaultGid);
-      categoryEl.addEventListener('change', () => {
-        const gid = sheets[categoryEl.value];
-        loadSheetHtml(gid);
-      });
+    /* Polling (automatic every 2 minutes) */
+    const POLL_INTERVAL_MS = 120000; // 2 minutes
+    let pollTimer = null;
+    let lastSnapshot = null;
+
+    async function fetchPublishedHtmlText(gid) {
+      const url = `${basePubHtml}?gid=${encodeURIComponent(gid)}&single=true&widget=true&headers=false&cb=${Date.now()}`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+      return res.text();
     }
 
-    init();
+    async function pollCheck(gid) {
+      try {
+        const html = await fetchPublishedHtmlText(gid);
+        const snapshot = html ? html.trim() : '';
+        if (lastSnapshot === null) {
+          lastSnapshot = snapshot;
+          await loadSheetHtml(gid);
+          return;
+        }
+        if (snapshot !== lastSnapshot) {
+          lastSnapshot = snapshot;
+          await loadSheetHtml(gid);
+        }
+      } catch (err) {
+        console.warn('Polling check failed:', err);
+      }
+    }
+
+    function startPolling() {
+      if (pollTimer) return;
+      const gidNow = sheets[categoryEl.value];
+      pollCheck(gidNow).catch(() => {});
+      pollTimer = setInterval(() => {
+        const gidCurrent = sheets[categoryEl.value];
+        pollCheck(gidCurrent).catch(() => {});
+      }, POLL_INTERVAL_MS);
+    }
+
+    function stopPolling() {
+      if (!pollTimer) return;
+      clearInterval(pollTimer);
+      pollTimer = null;
+    }
+
+    /* Simple routing: show main or submit view */
+    function showView(view) {
+      if (view === 'submit') {
+        // show submit view, hide main
+        mainView.style.display = 'none';
+        submitView.style.display = 'block';
+        submitView.setAttribute('aria-hidden', 'false');
+        mainView.setAttribute('aria-hidden', 'true');
+        // stop polling while user is on form page (reduces background fetches)
+        stopPolling();
+        // update location hash/history
+        history.pushState({ view: 'submit' }, '', '#submit');
+      } else {
+        // show main view
+        submitView.style.display = 'none';
+        mainView.style.display = 'block';
+        submitView.setAttribute('aria-hidden', 'true');
+        mainView.setAttribute('aria-hidden', 'false');
+        // reset snapshot so we get fresh content next poll
+        lastSnapshot = null;
+        // ensure current sheet is loaded
+        const gid = sheets[categoryEl.value];
+        loadSheetHtml(gid).catch(() => {});
+        // resume polling
+        startPolling();
+        history.pushState({ view: 'main' }, '', window.location.pathname);
+      }
+    }
+
+    // handle clicks on nav elements
+    submitNav.addEventListener('click', (e) => {
+      e.preventDefault();
+      showView('submit');
+    });
+    backToMain.addEventListener('click', (e) => {
+      e.preventDefault();
+      showView('main');
+    });
+
+    // handle browser back/forward navigation
+    window.addEventListener('popstate', (e) => {
+      const state = e.state;
+      if (state && state.view === 'submit') {
+        showView('submit');
+      } else {
+        showView('main');
+      }
+    });
+
+    // when category changes, immediately load that sheet and reset snapshot
+    categoryEl.addEventListener('change', () => {
+      lastSnapshot = null;
+      const gid = sheets[categoryEl.value];
+      loadSheetHtml(gid).catch(() => {});
+    });
+
+    // init: load default sheet and start polling; if page hash is #submit show submit page
+    (function init() {
+      const initialGid = sheets[categoryEl.value];
+      const hash = window.location.hash || '';
+      if (hash.toLowerCase() === '#submit') {
+        showView('submit');
+      } else {
+        showView('main');
+      }
+      // initial load and start polling if on main
+      if (mainView.style.display !== 'none') {
+        loadSheetHtml(initialGid).then(text => {
+          lastSnapshot = text ? text.trim() : null;
+        }).catch(() => { lastSnapshot = null; });
+        startPolling();
+      }
+    })();
   </script>
 </body>
 </html>
