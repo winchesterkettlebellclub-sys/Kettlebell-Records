@@ -1,229 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Kettlebell Sport - Results Ranks & Records</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kettlebell Sport - Results Ranks & Records</title>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:#2a2a2a;
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #2a2a2a;
-            color: #fff;
-            -webkit-font-smoothing:antialiased;
-        }
+    /* Banner/header */
+    header { position:relative; background:#111; overflow:hidden; }
+    .banner {
+      display:block;
+      width:100%;
+      height:240px;           /* desktop banner height (increase if you want taller) */
+      object-fit:cover;       /* cover fills width and crops sides if needed */
+      object-position:center; /* center the image */
+      background-color:#111;
+    }
+    @media (max-width:640px) {
+      .banner { height:140px; } /* mobile height */
+    }
 
-        /* Header / Banner */
-        header {
-            position: relative;
-            background: #111;
-            overflow: hidden;
-        }
+    .sr-only {
+      position:absolute !important;
+      height:1px; width:1px; overflow:hidden;
+      clip:rect(1px,1px,1px,1px); white-space:nowrap;
+    }
 
-        /* Use img with object-fit: contain so the whole banner is visible (no top/bottom crop).
-           Increase desktop height to show more of the image. */
-        .banner {
-            display: block;
-            width: 100%;
-            height: 220px; /* desktop height - increase if you'd like more space */
-            object-fit: contain; /* keeps the full image visible, letterboxing if needed */
-            background-color: #111; /* fallback color if image aspect leaves bars */
-        }
+    /* Page container */
+    .container { max-width:1400px; margin:18px auto; padding:0 20px; }
 
-        @media (max-width: 640px) {
-            .banner { height: 120px; } /* smaller banner on phones */
-        }
+    /* Controls */
+    .controls {
+      background:#333; padding:14px; border-radius:10px;
+      margin-bottom:14px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    }
+    .control-group { min-width:200px; flex:1; display:flex; flex-direction:column; gap:6px; }
+    label { font-size:14px; color:#ccc; font-weight:600; }
+    select {
+      padding:10px; border:none; border-radius:6px; background:#444; color:#fff; font-size:15px;
+    }
+    select:focus { outline:2px solid #1877f2; }
 
-        /* Accessibility: textual header for screen readers */
-        .sr-only {
-            position: absolute !important;
-            height: 1px; width: 1px;
-            overflow: hidden;
-            clip: rect(1px, 1px, 1px, 1px);
-            white-space: nowrap;
-        }
+    /* Instruction above the sheet */
+    .info-top { color:#ddd; font-size:14px; margin:10px 0 8px; text-align:center; }
 
-        /* Page container */
-        .container {
-            max-width: 1400px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
+    /* Sheet */
+    .sheet-frame {
+      background:#fff; border-radius:10px; overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,0.45);
+      height: calc(100vh - 520px); min-height:480px;
+    }
+    @media (max-width:780px) {
+      .sheet-frame { height: calc(100vh - 320px); min-height:420px; }
+    }
+    iframe { width:100%; height:100%; border:0; display:block; }
 
-        /* Controls (only the category select) */
-        .controls {
-            background: #333;
-            padding: 16px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    /* Footer social buttons */
+    footer.site-footer {
+      max-width:1400px; margin:22px auto 44px; padding:0 20px;
+      display:flex; justify-content:center; gap:14px; align-items:center;
+    }
+    .social-btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      width:52px; height:52px; border-radius:50%; text-decoration:none; overflow:hidden;
+      background:transparent; box-shadow:0 6px 18px rgba(0,0,0,0.32);
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
+    .social-btn:focus { outline:3px solid rgba(255,255,255,0.12); }
+    .social-icon {
+      display:block; width:100%; height:100%; object-fit:contain;
+      background:#fff; /* optional white backing so PNG/WebP logos with transparency look consistent */
+      padding:7px; /* inset for nicer spacing */
+    }
+    .social-btn:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.42); }
 
-        .control-group { display:flex; flex-direction:column; gap:6px; min-width:200px; flex:1; }
-        label { font-size: 14px; color: #ccc; font-weight: 600; }
-        select {
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            background: #444;
-            color: #fff;
-            font-size: 15px;
-        }
-        select:focus { outline: 2px solid #1877f2; }
-
-        /* Instruction moved above the sheet (only the short Ctrl+F tip) */
-        .info-top {
-            color: #ddd;
-            font-size: 14px;
-            margin: 12px 0 8px;
-            text-align: center;
-        }
-
-        /* Sheet frame */
-        .sheet-frame {
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-            height: calc(100vh - 480px); /* adjusted to account for larger banner */
-            min-height: 520px;
-        }
-
-        @media (max-width: 780px) {
-            .sheet-frame { height: calc(100vh - 300px); min-height: 420px; }
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        /* Footer with social buttons centered */
-        footer.site-footer {
-            max-width: 1400px;
-            margin: 18px auto 40px;
-            padding: 0 20px;
-            display:flex;
-            justify-content:center;
-            gap: 14px;
-            align-items:center;
-        }
-
-        .social-btn {
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            width:44px;
-            height:44px;
-            border-radius:50%;
-            text-decoration:none;
-            color:#fff;
-            font-weight:700;
-            font-family: Arial, Helvetica, sans-serif;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-            transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
-        }
-
-        .social-btn:focus { outline: 3px solid rgba(255,255,255,0.12); }
-
-        .social-fb { background: #1877f2; } /* blue */
-        .social-ig { background: linear-gradient(45deg, #f58529, #dd2a7b 30%, #8134af 60%); } /* instagram gradient */
-
-        .social-btn:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.4); opacity: 0.98; }
-
-        /* small label (hidden visually but available to screen readers) */
-        .social-label { position: absolute; left: -9999px; top: auto; width:1px; height:1px; overflow:hidden; }
-
-    </style>
+    /* fallback text if images not uploaded */
+    .social-fallback {
+      width:52px; height:52px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+      background:#1877f2; color:#fff; font-weight:700; font-family:Arial,Helvetica,sans-serif; text-decoration:none;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <!-- Banner image must exist at assets/banner.jpg (case-sensitive).
-             Using object-fit: contain prevents top/bottom cropping; height is larger on desktop. -->
-        <img src="assets/banner.jpg" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
+  <header>
+    <!-- Banner: ensure assets/banner.jpg exists (case-sensitive). Using cover to span full width. -->
+    <img src="assets/banner.jpg" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
 
-        <!-- Text for screen readers -->
-        <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport — Results Ranks & Records</div>
-    </header>
+    <!-- For accessibility -->
+    <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport — Results Ranks & Records</div>
+  </header>
 
-    <main class="container" role="main">
-        <div class="controls" aria-hidden="false">
-            <div class="control-group">
-                <label for="category">Select Category</label>
-                <select id="category" aria-label="Select competition category">
-                    <option value="biathlon-male">Biathlon Male</option>
-                    <option value="biathlon-female">Biathlon Female</option>
-                    <option value="jerks10-male">Jerks 10' Male</option>
-                    <option value="jerks10-female">Jerks 10' Female</option>
-                    <option value="snatch10-male">Snatch 10' Male</option>
-                    <option value="snatch10-female">Snatch 10' Female</option>
-                    <option value="lc10-male">LC 10' Male</option>
-                    <option value="lc10-female">LC 10' Female</option>
-                    <option value="snatch12-male">Snatch 12' Male</option>
-                    <option value="snatch12-female">Snatch 12' Female</option>
-                    <option value="marathon-male">Marathon Male</option>
-                    <option value="marathon-female">Marathon Female</option>
-                    <option value="pentathlon-male">Pentathlon Male</option>
-                    <option value="pentathlon-female">Pentathlon Female</option>
-                    <option value="ikmf-games">IKMF Games</option>
-                </select>
-            </div>
-        </div>
+  <main class="container" role="main">
+    <div class="controls" aria-hidden="false">
+      <div class="control-group">
+        <label for="category">Select Category</label>
+        <select id="category" aria-label="Select competition category">
+          <option value="biathlon-male">Biathlon Male</option>
+          <option value="biathlon-female">Biathlon Female</option>
+          <option value="jerks10-male">Jerks 10' Male</option>
+          <option value="jerks10-female">Jerks 10' Female</option>
+          <option value="snatch10-male">Snatch 10' Male</option>
+          <option value="snatch10-female">Snatch 10' Female</option>
+          <option value="lc10-male">LC 10' Male</option>
+          <option value="lc10-female">LC 10' Female</option>
+          <option value="snatch12-male">Snatch 12' Male</option>
+          <option value="snatch12-female">Snatch 12' Female</option>
+          <option value="marathon-male">Marathon Male</option>
+          <option value="marathon-female">Marathon Female</option>
+          <option value="pentathlon-male">Pentathlon Male</option>
+          <option value="pentathlon-female">Pentathlon Female</option>
+          <option value="ikmf-games">IKMF Games</option>
+        </select>
+      </div>
+    </div>
 
-        <p class="info-top">Tip: Press <strong>Ctrl+F</strong> (Cmd+F on Mac) while focused in the sheet to search quickly.</p>
+    <p class="info-top">Tip: Press <strong>Ctrl+F</strong> (Cmd+F on Mac) while focused in the sheet to search quickly.</p>
 
-        <div class="sheet-frame" id="sheetFrameWrap">
-            <iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml?gid=93885002&single=true&widget=true&headers=false" title="Kettlebell results sheet"></iframe>
-        </div>
-    </main>
+    <div class="sheet-frame" id="sheetFrameWrap">
+      <iframe id="sheetFrame" title="Kettlebell results sheet"
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml?gid=93885002&single=true&widget=true&headers=false"></iframe>
+    </div>
+  </main>
 
-    <!-- Footer with centered social buttons -->
-    <footer class="site-footer" role="contentinfo" aria-label="Social links">
-        <a class="social-btn social-fb" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Facebook group">
-            <span aria-hidden="true">f</span>
-            <span class="social-label">Facebook</span>
-        </a>
+  <footer class="site-footer" role="contentinfo" aria-label="Social links">
+    <!-- Facebook: using WebP file per your upload (assets/fb-icon.webp) -->
+    <a class="social-btn" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Facebook group">
+      <img src="assets/fb-icon.webp" alt="Facebook" class="social-icon"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex'">
+      <span class="social-fallback" style="display:none;">f</span>
+    </a>
 
-        <a class="social-btn social-ig" href="https://www.instagram.com/kettlebell_sport_records" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
-            <!-- simple camera glyph; screen readers get label -->
-            <span aria-hidden="true">📷</span>
-            <span class="social-label">Instagram</span>
-        </a>
-    </footer>
+    <!-- Instagram: using WebP file per your upload (assets/ig-icon.webp) -->
+    <a class="social-btn" href="https://www.instagram.com/kettlebell_sport_records" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+      <img src="assets/ig-icon.webp" alt="Instagram" class="social-icon"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex'">
+      <span class="social-fallback" style="display:none;">@</span>
+    </a>
+  </footer>
 
-    <script>
-        // Category -> GID mapping (unchanged)
-        const sheets = {
-            'biathlon-male': '93885002',         // existing
-            'biathlon-female': '152053352',
-            'jerks10-male': '726455571',
-            'jerks10-female': '635122239',
-            'snatch10-male': '2146152642',
-            'snatch10-female': '960654845',
-            'lc10-male': '2094974882',
-            'lc10-female': '410226466',
-            'snatch12-male': '321570812',
-            'snatch12-female': '177574292',
-            'marathon-male': '1504962327',
-            'marathon-female': '867269512',
-            'pentathlon-male': '1333859027',
-            'pentathlon-female': '225439885',
-            'ikmf-games': '893865195'
-        };
+  <script>
+    // GID mappings (unchanged)
+    const sheets = {
+      'biathlon-male': '93885002',
+      'biathlon-female': '152053352',
+      'jerks10-male': '726455571',
+      'jerks10-female': '635122239',
+      'snatch10-male': '2146152642',
+      'snatch10-female': '960654845',
+      'lc10-male': '2094974882',
+      'lc10-female': '410226466',
+      'snatch12-male': '321570812',
+      'snatch12-female': '177574292',
+      'marathon-male': '1504962327',
+      'marathon-female': '867269512',
+      'pentathlon-male': '1333859027',
+      'pentathlon-female': '225439885',
+      'ikmf-games': '893865195'
+    };
 
-        const baseUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
+    const baseUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
 
-        document.getElementById('category').addEventListener('change', function () {
-            const gid = sheets[this.value];
-            const iframe = document.getElementById('sheetFrame');
-            iframe.src = `${baseUrl}?gid=${gid}&single=true&widget=true&headers=false`;
-        });
-    </script>
+    document.getElementById('category').addEventListener('change', function() {
+      const gid = sheets[this.value];
+      const iframe = document.getElementById('sheetFrame');
+      iframe.src = `${baseUrl}?gid=${gid}&single=true&widget=true&headers=false`;
+    });
+  </script>
 </body>
 </html>
