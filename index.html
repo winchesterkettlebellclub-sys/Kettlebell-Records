@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kettlebell Sport - Results Ranks & Records</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #2a2a2a;
+            color: #fff;
+        }
+        
+        header {
+            background: #1a1a1a;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .header-text h1 {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .header-text p {
+            font-size: 18px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        
+        .fb-link {
+            margin-left: auto;
+            background: #1877f2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .fb-link:hover {
+            background: #166fe5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .controls {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            font-size: 14px;
+            color: #aaa;
+            font-weight: 600;
+        }
+        
+        select, input {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #444;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        select:focus, input:focus {
+            outline: 2px solid #1877f2;
+        }
+        
+        input {
+            cursor: text;
+        }
+        
+        .sheet-frame {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            height: calc(100vh - 320px);
+            min-height: 500px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .info-text {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .fb-link {
+                margin-left: 0;
+            }
+            
+            .header-text h1 {
+                font-size: 24px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .control-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🏋</div>
+            <div class="header-text">
+                <h1>Kettlebell Sport</h1>
+                <p>Results Ranks & Records</p>
+            </div>
+            <a href="https://www.facebook.com/groups/kettlebellsportresultsranksandrecords" target="_blank" class="fb-link">
+                <span>f</span> Facebook Group
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label for="category">Select Category</label>
+                <select id="category">
+                    <option value="biathlon-male">Biathlon Male</option>
+                    <option value="biathlon-female">Biathlon Female</option>
+                    <option value="jerks10-male">Jerks 10' Male</option>
+                    <option value="jerks10-female">Jerks 10' Female</option>
+                    <option value="snatch10-male">Snatch 10' Male</option>
+                    <option value="snatch10-female">Snatch 10' Female</option>
+                    <option value="lc10-male">LC 10' Male</option>
+                    <option value="lc10-female">LC 10' Female</option>
+                    <option value="snatch12-male">Snatch 12' Male</option>
+                    <option value="snatch12-female">Snatch 12' Female</option>
+                    <option value="marathon-male">Marathon Male</option>
+                    <option value="marathon-female">Marathon Female</option>
+                    <option value="pentathlon-male">Pentathlon Male</option>
+                    <option value="pentathlon-female">Pentathlon Female</option>
+                    <option value="ikmf-games">IKMF Games</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="search">Search (Name, Nationality, etc.)</label>
+                <input type="text" id="search" placeholder="Type to search in the sheet...">
+            </div>
+        </div>
+        
+        <div class="sheet-frame">
+            <iframe id="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml?gid=93885002&single=true&widget=true&headers=false"></iframe>
+        </div>
+        
+        <p class="info-text">
+            Use Ctrl+F (Cmd+F on Mac) within the sheet to search for specific records. 
+            Click column headers to sort. Scroll right to see all fields.
+        </p>
+    </div>
+    
+    <script>
+        const sheets = {
+            'biathlon-male': '93885002',
+            'biathlon-female': 'SHEET_ID_HERE',
+            'jerks10-male': 'SHEET_ID_HERE',
+            'jerks10-female': 'SHEET_ID_HERE',
+            'snatch10-male': 'SHEET_ID_HERE',
+            'snatch10-female': 'SHEET_ID_HERE',
+            'lc10-male': 'SHEET_ID_HERE',
+            'lc10-female': 'SHEET_ID_HERE',
+            'snatch12-male': 'SHEET_ID_HERE',
+            'snatch12-female': 'SHEET_ID_HERE',
+            'marathon-male': 'SHEET_ID_HERE',
+            'marathon-female': 'SHEET_ID_HERE',
+            'pentathlon-male': 'SHEET_ID_HERE',
+            'pentathlon-female': 'SHEET_ID_HERE',
+            'ikmf-games': 'SHEET_ID_HERE'
+        };
+        
+        const baseUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
+        
+        document.getElementById('category').addEventListener('change', function() {
+            const gid = sheets[this.value];
+            const iframe = document.getElementById('sheetFrame');
+            iframe.src = `${baseUrl}?gid=${gid}&single=true&widget=true&headers=false`;
+        });
+        
+        // Search functionality note
+        document.getElementById('search').addEventListener('focus', function() {
+            if (this.value === '') {
+                this.placeholder = 'Use Ctrl+F in the sheet below for best results';
+            }
+        });
+    </script>
+</body>
+</html>
