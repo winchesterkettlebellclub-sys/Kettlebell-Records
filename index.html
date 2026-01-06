@@ -18,39 +18,45 @@
       body { background: #262626; }    /* #262626 as requested for desktop */
     }
 
-    /* Header / Banner layout
-       - On mobile the banner spans the full width (width:100%).
-       - On desktop the banner is constrained and centered inside .banner-wrap
-         so it appears centered on the dark grey background.
-    */
+    /* Header / Banner layout */
     header { position:relative; overflow:hidden; }
 
     .banner-wrap {
       width:100%;
       display:block;
+      text-align:center; /* center the banner when it's narrower than the viewport */
     }
 
     /* Constrain & center the banner on desktop */
     @media (min-width:1024px) {
       .banner-wrap {
-        max-width: 1400px;     /* change if you want the banner narrower on wide screens */
-        margin: 0 auto;        /* centers the banner on the page */
-        padding: 18px 0;       /* breathing room above/below */
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 18px 0;
       }
     }
 
+    /* Default banner sizing (desktop-first) */
     .banner {
       display:block;
       width:100%;
-      height:160px;           /* mobile height (smaller so it fits phone width better) */
-      object-fit:cover;       /* cover fills width; image was cropped by you, so this is fine */
-      object-position:center; /* keep the center of the image visible */
+      height:260px;           /* desktop height */
+      object-fit:cover;       /* fills the width on desktop */
+      object-position:center;
       background-color:#111;
+      margin: 0 auto;
     }
 
-    /* Taller banner on desktop so it looks more prominent without cropping too much */
-    @media (min-width:1024px) {
-      .banner { height:260px; }
+    /* Mobile: narrower banner (approx 75% of screen) and use contain to avoid horizontal cropping */
+    @media (max-width:640px) {
+      .banner {
+        width:75%;            /* change this percent to make it wider/narrower on phones */
+        height:140px;         /* mobile height */
+        object-fit:contain;   /* ensures the whole image is visible, no left/right crop */
+        object-position:center;
+      }
+      /* Slightly adjust the page background on small screens if desired */
+      body { background: #111; }
     }
 
     .sr-only {
@@ -96,28 +102,19 @@
     .social-btn {
       display:inline-flex; align-items:center; justify-content:center;
       width:52px; height:52px; border-radius:50%; text-decoration:none; overflow:hidden;
-      /* default mobile background: match mobile body (#111) */
       background: #111;
       box-shadow:0 6px 18px rgba(0,0,0,0.32);
       transition:transform .12s ease, box-shadow .12s ease;
     }
-
-    /* On desktop match the desktop page background (#262626) so the buttons blend */
     @media (min-width:1024px) {
       .social-btn { background: #262626; }
     }
-
     .social-btn:focus { outline:3px solid rgba(255,255,255,0.12); }
-
-    /* Icons themselves should have transparent backing (no white circle) so the button background shows through */
     .social-icon {
       display:block; width:100%; height:100%; object-fit:contain;
-      background:transparent; /* transparent so button color shows */
-      padding:8px;
+      background:transparent; padding:8px;
     }
     .social-btn:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.42); }
-
-    /* fallback text if images not uploaded */
     .social-fallback {
       width:52px; height:52px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
       background:#1877f2; color:#fff; font-weight:700; font-family:Arial,Helvetica,sans-serif; text-decoration:none;
@@ -132,7 +129,6 @@
       <img src="assets/banner.jpg" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
     </div>
 
-    <!-- For accessibility -->
     <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport — Results Ranks & Records</div>
   </header>
 
