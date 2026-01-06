@@ -177,9 +177,112 @@
   </footer>
 
   <script src="cookie-consent.js" defer></script>
+
   <script>
-    // keep your existing JS here (loadSheetHtml, polling, routing etc.)
-    // Ensure any internal links referenced by JS use relative paths (e.g. "index.html", "contact.html")
+    // Simple, reliable iframe-based sheet loader.
+    // This replaces the earlier fetch/parse approach with a robust iframe fallback so published sheets always display.
+    // If you later want the inline parsed table approach, we can revert/restore that logic.
+
+    (function () {
+      // Map of sheet keys -> gid (same as your published sheet gids)
+      const sheets = {
+        'biathlon-male': '93885002',
+        'biathlon-female': '152053352',
+        'jerks10-male': '726455571',
+        'jerks10-female': '635122239',
+        'snatch10-male': '2146152642',
+        'snatch10-female': '960654845',
+        'lc10-male': '2094974882',
+        'lc10-female': '410226466',
+        'snatch12-male': '321570812',
+        'snatch12-female': '177574292',
+        'marathon-male': '1504962327',
+        'marathon-female': '867269512',
+        'pentathlon-male': '1333859027',
+        'pentathlon-female': '225439885',
+        'ikmf-games': '893865195'
+      };
+
+      // Published base (use the existing publish id you already tested)
+      const basePubHtml = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
+
+      // DOM refs
+      const categoryEl = document.getElementById('category');
+      const tableHolder = document.getElementById('tableHolder');
+      const iframeFallback = document.getElementById('iframeFallback');
+      const mainView = document.getElementById('mainView');
+      const submitView = document.getElementById('submitView');
+      const submitNav = document.getElementById('submitNav');
+      const backToMain = document.getElementById('backToMain');
+
+      function showIframeFallback(gid) {
+        tableHolder.style.display = 'none';
+        iframeFallback.style.display = 'block';
+        iframeFallback.innerHTML = ''; // clear existing
+        const iframe = document.createElement('iframe');
+        // Use the published URL parameters - widget=true keeps the sheet embed UI
+        iframe.src = `${basePubHtml}?gid=${encodeURIComponent(gid)}&single=true&widget=true&headers=false`;
+        iframe.title = 'Kettlebell results (embedded sheet)';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.setAttribute('loading', 'lazy');
+        iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        iframeFallback.appendChild(iframe);
+      }
+
+      // Switch view between main and submit
+      function showView(view) {
+        if (view === 'submit') {
+          mainView.style.display = 'none';
+          submitView.style.display = 'block';
+          submitView.setAttribute('aria-hidden', 'false');
+          mainView.setAttribute('aria-hidden', 'true');
+          history.replaceState({view:'submit'}, '', '#submit');
+        } else {
+          submitView.style.display = 'none';
+          mainView.style.display = 'block';
+          submitView.setAttribute('aria-hidden', 'true');
+          mainView.setAttribute('aria-hidden', 'false');
+          history.replaceState({view:'main'}, '', window.location.pathname);
+        }
+      }
+
+      // When the select changes, load the appropriate gid into the iframe
+      categoryEl.addEventListener('change', () => {
+        const gid = sheets[categoryEl.value];
+        if (gid) showIframeFallback(gid);
+      });
+
+      // submit view toggles
+      submitNav.addEventListener('click', (e) => {
+        e.preventDefault();
+        showView('submit');
+      });
+      backToMain.addEventListener('click', (e) => {
+        e.preventDefault();
+        showView('main');
+      });
+
+      // handle browser back/forward navigation
+      window.addEventListener('popstate', (e) => {
+        const state = e.state;
+        if (state && state.view === 'submit') showView('submit');
+        else showView('main');
+      });
+
+      // Init: load the currently selected sheet into iframe; if URL hash is #submit, show submit view
+      (function init() {
+        const hash = (window.location.hash || '').toLowerCase();
+        const initialGid = sheets[categoryEl.value];
+        if (hash === '#submit') {
+          showView('submit');
+        } else {
+          showView('main');
+        }
+        if (initialGid) showIframeFallback(initialGid);
+      })();
+
+    })();
   </script>
 </body>
 </html>
