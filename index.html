@@ -6,7 +6,7 @@
   <title>Kettlebell Sport - Results Ranks & Records</title>
 
   <!-- Cookie consent CSS (please upload cookie-consent.css to your repo) -->
-  <link rel="stylesheet" href="/cookie-consent.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
@@ -33,17 +33,7 @@
 
     .sr-only { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
 
-    /* Top navigation (About / Privacy / Contact) */
-    .top-nav {
-      display:flex; justify-content:center; gap:12px; padding:10px 0; background:transparent;
-    }
-    .top-nav a {
-      color:#9fe; text-decoration:none; padding:8px 12px; border-radius:8px; background:rgba(255,255,255,0.03);
-      font-weight:600;
-    }
-    .top-nav a:hover { transform:translateY(-2px); }
-
-    /* Page link below banner (Submit link kept separate for prominence) */
+    /* Page link below banner (Submit button style) */
     .page-nav { text-align:center; margin: 10px 0 6px; }
     .page-nav a {
       display:inline-block; padding:8px 14px; border-radius:8px; background:#1877f2; color:#fff; text-decoration:none; font-weight:600;
@@ -92,7 +82,18 @@
     footer.site-footer { max-width:1400px; margin:18px auto 30px; padding:0 20px; display:flex; justify-content:space-between; gap:14px; align-items:center; flex-wrap:wrap; }
     .socials { display:flex; gap:14px; align-items:center; }
     .footer-links { display:flex; gap:12px; align-items:center; }
-    .footer-links a { color:#9fe; text-decoration:none; background:transparent; padding:6px 10px; border-radius:8px; }
+    /* Footer links now styled to match submit button (same blue) */
+    .footer-links a {
+      color:#fff;
+      text-decoration:none;
+      background:#1877f2;
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:600;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      transition:transform .12s ease;
+    }
+    .footer-links a:hover { transform:translateY(-3px); }
     .social-btn { display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; text-decoration:none; overflow:hidden; background:#000; box-shadow:0 6px 18px rgba(0,0,0,0.32); transition:transform .12s ease; }
     .social-icon { display:block; width:100%; height:100%; object-fit:contain; background:transparent; padding:8px; }
     .social-btn:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.42); }
@@ -111,13 +112,6 @@
     <div class="banner-wrap">
       <img src="assets/banner.jpg" alt="Kettlebell Sport — Results Ranks & Records" class="banner" />
     </div>
-
-    <!-- top nav links -->
-    <nav class="top-nav" aria-label="Top navigation">
-      <a href="/about.html">About</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
 
     <!-- link to the embedded submission page (just below the banner) -->
     <div class="page-nav" aria-hidden="false">
@@ -170,7 +164,7 @@
     </div>
 
     <div class="form-frame" aria-live="polite">
-      <!-- Embedded Google Form (responsive). If you prefer a separate contact page we also link to /contact.html -->
+      <!-- Embedded Google Form (responsive). If you prefer a separate contact page we also link to contact.html -->
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeRfJFJeB2yPOIOzNqLDZ0vvEBaWPx0mIiYxHtg_reVrGLiVg/viewform?embedded=true"
               title="Submit a result form"
               loading="lazy"
@@ -192,14 +186,15 @@
     </div>
 
     <div class="footer-links">
-      <a href="/about.html">About</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/contact.html">Contact</a>
+      <!-- Use relative paths to files in the repository root -->
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
     </div>
   </footer>
 
   <!-- Cookie consent script (please upload cookie-consent.js to your repo) -->
-  <script src="/cookie-consent.js" defer></script>
+  <script src="cookie-consent.js" defer></script>
 
   <script>
     /**
