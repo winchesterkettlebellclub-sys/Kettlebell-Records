@@ -37,22 +37,6 @@
     }
     .page-nav a:hover { transform:translateY(-3px); }
     
-    .back-to-global {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      background: #333;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      transition: transform .12s ease;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .back-to-global:hover { transform: translateY(-3px); }
-    
     .england-badge {
       display: inline-flex;
       align-items: center;
@@ -63,6 +47,7 @@
       color: #fff;
       font-weight: 700;
       font-size: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
     }
     .england-flag {
       width: 28px;
@@ -137,7 +122,9 @@
 <body>
   <header>
     <div class="banner-wrap">
-      <img src="./assets/banner.jpg" alt="Kettlebell Sport England – Results Ranks &amp; Records" class="banner">
+      <a href="index.html" style="display: block; text-decoration: none;">
+        <img src="./assets/banner.jpg" alt="Kettlebell Sport England – Results Ranks &amp; Records" class="banner">
+      </a>
     </div>
 
     <div class="page-nav" aria-hidden="false">
@@ -147,7 +134,7 @@
           <rect x="0" y="13" width="60" height="4" fill="#CE1124"/>
           <rect x="28" y="0" width="4" height="30" fill="#CE1124"/>
         </svg>
-        England
+        England Results
       </span>
       <a href="#submit" id="submitNav">Submit a result</a>
       <a href="index.html" class="back-to-global">← All Results</a>
