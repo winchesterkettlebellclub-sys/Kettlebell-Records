@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kettlebell Sport England - Results Ranks &amp; Records</title>
+
+  <!-- Cookie consent CSS (relative path) -->
+  <link rel="stylesheet" href="./assets/cookie-consent.css">
+
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    html,body { height:100%; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header / Banner */
+    header { position:relative; overflow:hidden; }
+    .banner-wrap { width:100%; display:block; text-align:center; }
+    @media (min-width:1024px) { .banner-wrap { max-width:1400px; margin:0 auto; padding:10px 0; } }
+    .banner { display:block; width:100%; height:260px; object-fit:cover; object-position:center; background-color:#000; margin:0 auto; }
+    @media (max-width:640px) {
+      .banner { width:100%; max-width:420px; height:140px; object-fit:contain; margin:6px auto; }
+      .banner-wrap { padding:6px 0; }
+    }
+
+    .sr-only { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+
+    .page-nav { text-align:center; margin: 10px 0 6px; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .page-nav a {
+      display:inline-block; padding:8px 14px; border-radius:8px; background:#1877f2; color:#fff; text-decoration:none; font-weight:600;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35); transition:transform .12s ease;
+    }
+    .page-nav a:hover { transform:translateY(-3px); }
+    
+    .back-to-global {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: #333;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      transition: transform .12s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .back-to-global:hover { transform: translateY(-3px); }
+    
+    .england-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: #CE1124;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .england-flag {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+    }
+
+    .container { max-width:1400px; margin:14px auto 28px; padding:0 20px; min-height:0; }
+
+    .controls { background:#333; padding:12px; border-radius:10px; margin-bottom:12px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .control-group { min-width:200px; flex:1; display:flex; flex-direction:column; gap:6px; }
+    label { font-size:14px; color:#ccc; font-weight:600; }
+    select { padding:10px; border:none; border-radius:6px; background:#444; color:#fff; font-size:15px; }
+    select:focus { outline:2px solid #1877f2; }
+
+    .info-top { color:#ddd; font-size:14px; margin:10px 0 8px; text-align:center; }
+
+    .sheet-frame { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.45); min-height:420px; height: calc(100vh - 520px); }
+    @media (max-width:780px) { .sheet-frame { height: calc(100vh - 320px); min-height:360px; } }
+
+    #tableHolder { width:100%; height:100%; overflow:auto; padding:8px; background:#fff; color:#111; }
+    .imported-sheet { width:100%; border-collapse:collapse; min-width:680px; }
+    .imported-sheet th, .imported-sheet td { padding:6px 10px; vertical-align:middle; }
+    .imported-sheet thead th { position: sticky; top: 0; z-index: 6; }
+    .imported-sheet th:first-child, .imported-sheet td:first-child { position: -webkit-sticky; position: sticky; left: 0; z-index: 5; box-shadow: 2px 0 6px rgba(0,0,0,0.06); }
+    .imported-sheet thead th:first-child { z-index: 8; }
+
+    .iframe-fallback iframe { width:100%; height:100%; border:0; display:block; }
+
+    /* Submit view */
+    .submit-page { display:none; max-width:1400px; margin: 8px auto 28px; padding: 0 20px; }
+    .submit-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    .submit-title { font-size:18px; color:#fff; font-weight:700; }
+    .back-link { display:inline-block; padding:8px 12px; border-radius:8px; background:#333; color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,0.04); }
+    .form-frame { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.45); padding:0; }
+    .form-frame iframe { width:100%; height: calc(100vh - 220px); min-height:600px; border:0; }
+    @media (max-width:640px) { .form-frame iframe { height: calc(100vh - 160px); min-height:500px; } }
+
+    /* Footer */
+    footer.site-footer { max-width:1400px; margin:18px auto 30px; padding:0 20px; display:flex; justify-content:space-between; gap:14px; align-items:center; flex-wrap:wrap; }
+    .socials { display:flex; gap:14px; align-items:center; }
+    .footer-links { display:flex; gap:12px; align-items:center; }
+
+    /* Footer links (facebook blue) */
+    .footer-links a {
+      color:#fff;
+      text-decoration:none;
+      background:#1877f2;
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:600;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      transition:transform .12s ease;
+    }
+    .footer-links a:hover { transform:translateY(-3px); }
+
+    .social-btn { display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; text-decoration:none; overflow:hidden; background:#000; box-shadow:0 6px 18px rgba(0,0,0,0.32); transition:transform .12s ease; }
+    .social-icon { display:block; width:100%; height:100%; object-fit:contain; background:transparent; padding:8px; }
+    .social-btn:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.42); }
+
+    @media (max-width:420px) {
+      .controls { padding:10px; }
+      .container { margin:10px auto 22px; padding:0 12px; }
+      .page-nav a { padding:8px 10px; }
+      footer.site-footer { justify-content:center; }
+    }
+
+    /* Force content page anchor colours to site blue where needed */
+    .content-link, .page-content a { color: #1877f2 !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="banner-wrap">
+      <img src="./assets/banner.jpg" alt="Kettlebell Sport England – Results Ranks &amp; Records" class="banner">
+    </div>
+
+    <div class="page-nav" aria-hidden="false">
+      <span class="england-badge">
+        <svg class="england-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+          <rect width="60" height="30" fill="#fff"/>
+          <rect x="0" y="13" width="60" height="4" fill="#CE1124"/>
+          <rect x="28" y="0" width="4" height="30" fill="#CE1124"/>
+        </svg>
+        England
+      </span>
+      <a href="#submit" id="submitNav">Submit a result</a>
+      <a href="index.html" class="back-to-global">← All Results</a>
+    </div>
+
+    <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport England – Results Ranks &amp; Records</div>
+  </header>
+
+  <main id="mainView" class="container" role="main" aria-hidden="false" style="display: block;">
+    <div class="controls" aria-hidden="false">
+      <div class="control-group">
+        <label for="category">Select Lift / Discipline (England)</label>
+        <select id="category" aria-label="Select Lift / Discipline">
+          <option value="results-videos-england">Results with Videos England</option>
+          <option value="biathlon-male-england">Biathlon Male England</option>
+          <option value="biathlon-female-england">Biathlon Female England</option>
+          <option value="jerks10-male-england">Jerks 10' Male England</option>
+          <option value="jerks10-female-england">Jerks 10' Female England</option>
+          <option value="snatch10-male-england">Snatch 10' Male England</option>
+          <option value="snatch10-female-england">Snatch 10' Female England</option>
+          <option value="lc10-male-england">LC 10' Male England</option>
+          <option value="lc10-female-england">LC 10' Female England</option>
+          <option value="oalc10-england">OALC 10' England</option>
+          <option value="oaj10-england">OAJ 10' England</option>
+          <option value="snatch12-male-england">Snatch 12' Male England</option>
+          <option value="snatch12-female-england">Snatch 12' Female England</option>
+          <option value="marathon-male-england">Marathon Male England</option>
+          <option value="marathon-female-england">Marathon Female England</option>
+          <option value="pentathlon-male-england">Pentathlon Male England</option>
+          <option value="pentathlon-female-england">Pentathlon Female England</option>
+          <option value="double-pentathlon-england">Double Pentathlon England</option>
+          <option value="ikmf-games-england">IKMF Games England</option>
+          <option value="5min-england">5' England</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="info-top">Tip: Press <strong>Ctrl+F</strong> (Cmd+F on Mac) while focused in the table to search quickly.</p>
+
+    <div id="sheetFrameWrap" class="sheet-frame" aria-live="polite">
+      <div id="tableHolder" style="display:none;"></div>
+      <div id="iframeFallback" class="iframe-fallback" style="display: block; height: 100%;"></div>
+    </div>
+  </main>
+
+  <section id="submitView" class="submit-page" aria-hidden="true" style="display: none;">
+    <div class="submit-header">
+      <div class="submit-title">Submit a result (England)</div>
+      <div><a href="england.html" class="back-link" id="backToMain">← Back to results</a></div>
+    </div>
+
+    <div class="form-frame" aria-live="polite">
+      <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" title="Submit a result form" loading="lazy" referrerpolicy="no-referrer-when-downgrade">Loading…</iframe>
+    </div>
+  </section>
+
+  <footer class="site-footer" role="contentinfo" aria-label="Footer">
+    <div class="socials">
+      <a class="social-btn" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Facebook group">
+        <img src="./assets/fb-icon.webp" alt="Facebook" class="social-icon" onerror="this.style.display='none'">
+      </a>
+      <a class="social-btn" href="https://www.instagram.com/kettlebell_sport_records" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+        <img src="./assets/ig-icon.webp" alt="Instagram" class="social-icon" onerror="this.style.display='none'">
+      </a>
+    </div>
+
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script src="./assets/cookie-consent.js" defer></script>
+
+  <script>
+    (function () {
+      // Map of England sheet keys -> gid
+      const sheets = {
+        'results-videos-england': '1485004818',
+        'biathlon-male-england': '693484367',
+        'biathlon-female-england': '562936350',
+        'jerks10-male-england': '290970331',
+        'jerks10-female-england': '2066802337',
+        'snatch10-male-england': '7618339',
+        'snatch10-female-england': '183445926',
+        'lc10-male-england': '260710646',
+        'lc10-female-england': '142116652',
+        'oalc10-england': '2124663167',
+        'oaj10-england': '810517552',
+        'snatch12-male-england': '455110014',
+        'snatch12-female-england': '2100952594',
+        'marathon-male-england': '1406913852',
+        'marathon-female-england': '1874858257',
+        'pentathlon-male-england': '513763048',
+        'pentathlon-female-england': '844328837',
+        'double-pentathlon-england': '256399873',
+        'ikmf-games-england': '1772408957',
+        '5min-england': '2037254256'
+      };
+
+      // Published base URL - same spreadsheet as main site
+      const basePubHtml = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
+
+      // DOM refs
+      const categoryEl = document.getElementById('category');
+      const tableHolder = document.getElementById('tableHolder');
+      const iframeFallback = document.getElementById('iframeFallback');
+      const mainView = document.getElementById('mainView');
+      const submitView = document.getElementById('submitView');
+      const submitNav = document.getElementById('submitNav');
+      const backToMain = document.getElementById('backToMain');
+
+      function showIframeFallback(gid) {
+        tableHolder.style.display = 'none';
+        iframeFallback.style.display = 'block';
+        iframeFallback.innerHTML = '';
+        const iframe = document.createElement('iframe');
+        iframe.src = `${basePubHtml}?gid=${encodeURIComponent(gid)}&single=true&widget=true&headers=false`;
+        iframe.title = 'Kettlebell England results (embedded sheet)';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.setAttribute('loading', 'lazy');
+        iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        iframeFallback.appendChild(iframe);
+      }
+
+      function showView(view) {
+        if (view === 'submit') {
+          mainView.style.display = 'none';
+          submitView.style.display = 'block';
+          submitView.setAttribute('aria-hidden', 'false');
+          mainView.setAttribute('aria-hidden', 'true');
+          history.replaceState({view:'submit'}, '', '#submit');
+        } else {
+          submitView.style.display = 'none';
+          mainView.style.display = 'block';
+          submitView.setAttribute('aria-hidden', 'true');
+          mainView.setAttribute('aria-hidden', 'false');
+          history.replaceState({view:'main'}, '', window.location.pathname);
+        }
+      }
+
+      categoryEl.addEventListener('change', () => {
+        const gid = sheets[categoryEl.value];
+        if (gid) showIframeFallback(gid);
+      });
+
+      submitNav.addEventListener('click', (e) => {
+        e.preventDefault();
+        showView('submit');
+      });
+      backToMain.addEventListener('click', (e) => {
+        e.preventDefault();
+        showView('main');
+      });
+
+      window.addEventListener('popstate', (e) => {
+        const state = e.state;
+        if (state && state.view === 'submit') showView('submit');
+        else showView('main');
+      });
+
+      (function init() {
+        const hash = (window.location.hash || '').toLowerCase();
+        const initialGid = sheets[categoryEl.value];
+        if (hash === '#submit') {
+          showView('submit');
+        } else {
+          showView('main');
+        }
+        if (initialGid) showIframeFallback(initialGid);
+      })();
+
+    })();
+  </script>
+
+</body></html>
