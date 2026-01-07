@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kettlebell Sport - Results Ranks & Records</title>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kettlebell Sport - Results Ranks &amp; Records</title>
 
   <!-- Cookie consent CSS (relative path) -->
-  <link rel="stylesheet" href="cookie-consent.css">
+  <link rel="stylesheet" href="./assets/cookie-consent.css">
 
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
@@ -31,12 +30,32 @@
 
     .sr-only { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
 
-    .page-nav { text-align:center; margin: 10px 0 6px; }
+    .page-nav { text-align:center; margin: 10px 0 6px; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
     .page-nav a {
       display:inline-block; padding:8px 14px; border-radius:8px; background:#1877f2; color:#fff; text-decoration:none; font-weight:600;
       box-shadow:0 6px 18px rgba(0,0,0,0.35); transition:transform .12s ease;
     }
     .page-nav a:hover { transform:translateY(-3px); }
+    
+    .england-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: #CE1124;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      transition: transform .12s ease;
+    }
+    .england-link:hover { transform: translateY(-3px); }
+    .england-flag {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+    }
 
     .container { max-width:1400px; margin:14px auto 28px; padding:0 20px; min-height:0; }
 
@@ -105,17 +124,25 @@
 <body>
   <header>
     <div class="banner-wrap">
-      <img src="assets/banner.jpg" alt="Kettlebell Sport – Results Ranks & Records" class="banner" />
+      <img src="./assets/banner.jpg" alt="Kettlebell Sport – Results Ranks &amp; Records" class="banner">
     </div>
 
     <div class="page-nav" aria-hidden="false">
       <a href="#submit" id="submitNav">Submit a result</a>
+      <a href="england.html" class="england-link">
+        <svg class="england-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+          <rect width="60" height="30" fill="#fff"/>
+          <rect x="0" y="13" width="60" height="4" fill="#CE1124"/>
+          <rect x="28" y="0" width="4" height="30" fill="#CE1124"/>
+        </svg>
+        England Results
+      </a>
     </div>
 
-    <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport – Results Ranks & Records</div>
+    <div class="sr-only" role="heading" aria-level="1">Kettlebell Sport – Results Ranks &amp; Records</div>
   </header>
 
-  <main id="mainView" class="container" role="main">
+  <main id="mainView" class="container" role="main" aria-hidden="false" style="display: block;">
     <div class="controls" aria-hidden="false">
       <div class="control-group">
         <label for="category">Select Lift / Discipline</label>
@@ -148,29 +175,28 @@
 
     <div id="sheetFrameWrap" class="sheet-frame" aria-live="polite">
       <div id="tableHolder" style="display:none;"></div>
-      <div id="iframeFallback" class="iframe-fallback" style="display:none; height:100%;"></div>
+      <div id="iframeFallback" class="iframe-fallback" style="display: block; height: 100%;"></div>
     </div>
   </main>
 
-  <section id="submitView" class="submit-page" aria-hidden="true">
+  <section id="submitView" class="submit-page" aria-hidden="true" style="display: none;">
     <div class="submit-header">
       <div class="submit-title">Submit a result</div>
       <div><a href="index.html" class="back-link" id="backToMain">← Back to results</a></div>
     </div>
 
     <div class="form-frame" aria-live="polite">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeRfJFJeB2yPOIOzNqLDZ0vvEBaWPx0mIiYxHtg_reVrGLiVg/viewform?embedded=true"
-              title="Submit a result form" loading="lazy" referrerpolicy="no-referrer-when-downgrade">Loading…</iframe>
+      <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" title="Submit a result form" loading="lazy" referrerpolicy="no-referrer-when-downgrade">Loading…</iframe>
     </div>
   </section>
 
   <footer class="site-footer" role="contentinfo" aria-label="Footer">
     <div class="socials">
       <a class="social-btn" href="https://www.facebook.com/groups/kbsportresults" target="_blank" rel="noopener noreferrer" aria-label="Facebook group">
-        <img src="assets/fb-icon.webp" alt="Facebook" class="social-icon" onerror="this.style.display='none'">
+        <img src="./assets/fb-icon.webp" alt="Facebook" class="social-icon" onerror="this.style.display='none'">
       </a>
       <a class="social-btn" href="https://www.instagram.com/kettlebell_sport_records" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
-        <img src="assets/ig-icon.webp" alt="Instagram" class="social-icon" onerror="this.style.display='none'">
+        <img src="./assets/ig-icon.webp" alt="Instagram" class="social-icon" onerror="this.style.display='none'">
       </a>
     </div>
 
@@ -181,13 +207,9 @@
     </div>
   </footer>
 
-  <script src="cookie-consent.js" defer></script>
+  <script src="./assets/cookie-consent.js" defer></script>
 
   <script>
-    // Simple, reliable iframe-based sheet loader.
-    // This replaces the earlier fetch/parse approach with a robust iframe fallback so published sheets always display.
-    // If you later want the inline parsed table approach, we can revert/restore that logic.
-
     (function () {
       // Map of sheet keys -> gid (same as your published sheet gids)
       const sheets = {
@@ -213,7 +235,7 @@
         '5min': '1352852438'
       };
 
-      // Published base (use the existing publish id you already tested)
+      // Published base
       const basePubHtml = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3IpckvYxUsOYfT_smcIWSNTK4OWHbGtwSUGoWXhWnLntwPuIt81PAdGLvnLdYiasjgtMhd0Rd-Pzm/pubhtml';
 
       // DOM refs
@@ -228,9 +250,8 @@
       function showIframeFallback(gid) {
         tableHolder.style.display = 'none';
         iframeFallback.style.display = 'block';
-        iframeFallback.innerHTML = ''; // clear existing
+        iframeFallback.innerHTML = '';
         const iframe = document.createElement('iframe');
-        // Use the published URL parameters - widget=true keeps the sheet embed UI
         iframe.src = `${basePubHtml}?gid=${encodeURIComponent(gid)}&single=true&widget=true&headers=false`;
         iframe.title = 'Kettlebell results (embedded sheet)';
         iframe.style.width = '100%';
@@ -240,7 +261,6 @@
         iframeFallback.appendChild(iframe);
       }
 
-      // Switch view between main and submit
       function showView(view) {
         if (view === 'submit') {
           mainView.style.display = 'none';
@@ -257,13 +277,11 @@
         }
       }
 
-      // When the select changes, load the appropriate gid into the iframe
       categoryEl.addEventListener('change', () => {
         const gid = sheets[categoryEl.value];
         if (gid) showIframeFallback(gid);
       });
 
-      // submit view toggles
       submitNav.addEventListener('click', (e) => {
         e.preventDefault();
         showView('submit');
@@ -273,14 +291,12 @@
         showView('main');
       });
 
-      // handle browser back/forward navigation
       window.addEventListener('popstate', (e) => {
         const state = e.state;
         if (state && state.view === 'submit') showView('submit');
         else showView('main');
       });
 
-      // Init: load the currently selected sheet into iframe; if URL hash is #submit, show submit view
       (function init() {
         const hash = (window.location.hash || '').toLowerCase();
         const initialGid = sheets[categoryEl.value];
@@ -294,5 +310,5 @@
 
     })();
   </script>
-</body>
-</html>
+
+</body></html>
